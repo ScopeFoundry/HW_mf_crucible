@@ -12,7 +12,8 @@ class MFCrucibleHW(HardwareComponent):
         self.settings.New("proposal", initial="MFP0000", choices=(['MFP0000']), dtype=str)
         #self.settings.New("email", initial="nobody@lbl.gov",dtype=str)
         
-        self.orcid1.textChanged.connect(self.on_enter_orcid_id)      
+        #self.orcid1.textChanged.connect(self.on_enter_orcid_id)     
+        self.settings.orcid1.textChanged.connect(self.on_enter_orcid_id)
         self.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
         self.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
         
