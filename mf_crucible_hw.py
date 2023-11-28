@@ -10,11 +10,16 @@ class MFCrucibleHW(HardwareComponent):
         self.settings.New("orcid2", initial="0000-0000-0000-0000", dtype=str)
         self.settings.New("orcid3", initial="0000-0000-0000-0000", dtype=str)
         self.settings.New("proposal", initial="MFP0000", choices=(['MFP0000']), dtype=str)
-        #self.settings.New("email", initial="nobody@lbl.gov",dtype=str)
+        self.settings.New("email", initial="nobody@lbl.gov",dtype=str)
         
         #self.orcid1.textChanged.connect(self.on_enter_orcid_id)     
         #self.settings.orcid1.textChanged.connect(self.on_enter_orcid_id)
 
+        self.add_operation("User Login", self.login_opfunc)
+
+    def login_opfunc(self):
+        print("user login operation running")
+        
     def on_enter_orcid_id(self, text):
         text_clean = text.replace("-", "")
         patt = re.compile("[0-9]*")
