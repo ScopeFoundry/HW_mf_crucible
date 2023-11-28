@@ -20,21 +20,23 @@ class MFCrucibleHW(HardwareComponent):
         print("user login operation running")
         
     def on_enter_orcid_id(self):
-        orcid = self.settings.orcid.value
-        print(orcid)
-        text_clean = orcid.replace("-", "")
+        orcid = self.settings.orcid.value.replace("-", "")
         patt = re.compile("[0-9]*")
-        full_text = "-".join([text_clean[0:4], text_clean[4:8], text_clean[8:12], text_clean[12:16]])
-        print(full_text)
-        if all([len(text_clean)==16, patt.match(text_clean)]):
-            user_proposal_info = get_proposals_using_orcid(full_text)
-            print(user_proposal_info)
+        orcid_format = "-".join(string[i:i+4] for i in range(0,len(string),4))
+        print(orcid_format)
+        #full_text = "-".join([orcid[0:4], orcid[4:8], orcid[8:12], orcid[12:16]])
+        if all([len(orcid)==16, re.compile("[0-9]*").match(orcid)]):
+            user_info = get_proposals_using_orcid(orcid_format)
+            
+            # update proposal dropdown options
             proposal_list = user_proposal_info['proposals']
-            proposal_list.append("InternalResearch")
-            proposal_list_lq = self.settings.get_lq('proposal')
-            proposal_list_lq.change_choice_list(proposal_list)
-            # self.ui.proposal_dropdown.clear()
-            # self.ui.proposal_dropdown.addItems(proposal_list)
+            self.settings.get_lq('proposal').change_choice_list(proposal_list.append("InternalResearch"))
+            self.settings.get_lq('proposal').update_value("InternalResearch")
+            
+            # update user email
+            email = user_info['lbl_email'] if user_info['lbl_email'] is not None else user_info['email']
+            self.settings.get_lq('email').update_value(email)
+            
 
             
 def get_proposals_using_orcid(orcid_id):
@@ -42,7 +44,6 @@ def get_proposals_using_orcid(orcid_id):
         secrets= yaml.safe_load(f)
     f.close()
     apikey = secrets["apikey"]
-    print(f"https://foundry-admin.lbl.gov/api/json/sciCat-GetUser.aspx?key={apikey}&orcid={orcid_id}")
     response = requests.request(method="get", url=f"https://foundry-admin.lbl.gov/api/json/sciCat-GetUser.aspx?key={apikey}&orcid={orcid_id}")
     if response.text != '' and response.status_code == 200:
         return(response.json())
