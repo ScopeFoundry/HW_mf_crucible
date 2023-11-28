@@ -6,17 +6,15 @@ class MFCrucibleHW(HardwareComponent):
     
     def setup(self):
         
-        self.settings.New("orcid", initial="0000-0000-0000-0000", dtype=str)
+        self.settings.New("orcid1", initial="0000-0000-0000-0000", dtype=str)
+        self.settings.New("orcid2", initial="0000-0000-0000-0000", dtype=str)
+        self.settings.New("orcid3", initial="0000-0000-0000-0000", dtype=str)
         self.settings.New("proposal", initial="MFP0000", choices=(['MFP0000']), dtype=str)
         self.settings.New("email", initial="nobody@lbl.gov",dtype=str)
         
-        
-        self.add_operation("User Login", self.login_opfunc)
-        self.settings.orcid.textChanged.connect(self.on_enter_orcid_id)
-    
-    def login_opfunc(self):
-        print("user login operation running")
-        
+        self.orcid1.textChanged.connect(self.on_enter_orcid_id)      
+        self.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
+        self.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
         
     def on_enter_orcid_id(self, text):
         text_clean = text.replace("-", "")
@@ -28,7 +26,7 @@ class MFCrucibleHW(HardwareComponent):
             print(user_proposal_info)
             proposal_list = user_proposal_info['proposals']
             proposal_list.append("InternalResearch")
-            proposal_list_lq = self.settings.get_lq('proposal)
+            proposal_list_lq = self.settings.get_lq('proposal')
             proposal_list_lq.change_choice_list(proposal_list)
             # self.ui.proposal_dropdown.clear()
             # self.ui.proposal_dropdown.addItems(proposal_list)
