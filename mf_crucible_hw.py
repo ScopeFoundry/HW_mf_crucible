@@ -1,5 +1,7 @@
 from ScopeFoundry import HardwareComponent
-
+import re
+import yaml
+import requests
 class MFCrucibleHW(HardwareComponent):
     
     name = 'mf_crucible'
@@ -19,6 +21,7 @@ class MFCrucibleHW(HardwareComponent):
         
     def on_enter_orcid_id(self):
         orcid = self.settings.orcid.value
+        print(orcid)
         text_clean = orcid.replace("-", "")
         patt = re.compile("[0-9]*")
         full_text = "-".join([text_clean[0:4], text_clean[4:8], text_clean[8:12], text_clean[12:16]])
