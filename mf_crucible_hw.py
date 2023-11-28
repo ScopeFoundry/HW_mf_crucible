@@ -9,9 +9,15 @@ class MFCrucibleHW(HardwareComponent):
         self.settings.New("orcid", initial="0000-0000-0000-0000", dtype=str)
         self.settings.New("proposal", initial="MFP0000", choices=(['MFP0000']), dtype=str)
         self.settings.New("email", initial="nobody@lbl.gov",dtype=str)
+        
+        
+        self.add_operation("User Login", self.login_opfunc)
+        self.settings.orcid.textChanged.connect(self.on_enter_orcid_id)
     
-        self.ui.enter_orcid.textChanged.connect(self.on_enter_orcid_id)
-    
+    def login_opfunc(self):
+        print("user login operation running")
+        
+        
     def on_enter_orcid_id(self, text):
         text_clean = text.replace("-", "")
         patt = re.compile("[0-9]*")
@@ -22,15 +28,11 @@ class MFCrucibleHW(HardwareComponent):
             print(user_proposal_info)
             proposal_list = user_proposal_info['proposals']
             proposal_list.append("InternalResearch")
-            # proposal_list_lq = self.settings.get_lq(lq_name)
-            # proposal_list_lq.change_choice_list(proposal_list)
+            proposal_list_lq = self.settings.get_lq('proposal)
+            proposal_list_lq.change_choice_list(proposal_list)
             # self.ui.proposal_dropdown.clear()
             # self.ui.proposal_dropdown.addItems(proposal_list)
 
-    def connect(self):
-        for lq_name, (cat_name, feature_name, dtype) in self.features.items():
-            print(lq_name, (cat_name, feature_name, dtype))
-            
             
 def get_proposals_using_orcid(orcid_id):
     with open("secrets/proposaldb.yaml") as f:
