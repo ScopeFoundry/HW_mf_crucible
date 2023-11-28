@@ -15,7 +15,7 @@ class MFCrucibleControlPanel(Measurement):
         try: 
             self.app.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
         except:
-            print("first one didnt work"
+            print("first one didnt work")
         try: 
             self.app.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
         except:
