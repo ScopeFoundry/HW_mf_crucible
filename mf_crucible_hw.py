@@ -29,7 +29,7 @@ class MFCrucibleHW(HardwareComponent):
             user_info = get_proposals_using_orcid(orcid_format)
             
             # update proposal dropdown options
-            proposal_list = user_proposal_info['proposals']
+            proposal_list = user_info['proposals']
             self.settings.get_lq('proposal').change_choice_list(proposal_list.append("InternalResearch"))
             self.settings.get_lq('proposal').update_value("InternalResearch")
             
