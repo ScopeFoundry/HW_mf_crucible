@@ -14,16 +14,16 @@ class MFCrucibleControlPanel(Measurement):
         self.ui = self.app.hardware['mf_crucible'].settings.New_UI()
         try: 
             self.app.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
-        except Exception,e:
+        except Exception as e:
             print(e)
         try: 
             self.app.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
-        except Exception,e:
+        except Exception as e:
             print('second one didnt work')
             print(e)
         try:
             self.app.orcid1.textChanged.connect(self.on_enter_orcid_id)
-        except Exception,e:
+        except Exception as e:
             print('third failed')
             print(e)
         #self.ui.email.returnPressed.connect(self.x_up)
