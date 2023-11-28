@@ -12,10 +12,22 @@ class MFCrucibleControlPanel(Measurement):
         #self.user_info.settings.orcid.textChanged.connect(self.on_enter_orcid_id)
         
         self.ui = self.app.hardware['mf_crucible'].settings.New_UI()
-        #self.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
-        #self.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
-        
+        try: 
+            self.app.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
+        except:
+            print("first one didnt work"
+        try: 
+            self.app.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
+        except:
+            print('second one didnt work')
+        try:
+            self.app.orcid1.textChanged.connect(self.on_enter_orcid_id)
+        except:
+            print('third failed')
         #self.ui.email.returnPressed.connect(self.x_up)
 
     def x_up(self):
         print("pushed the xup button")
+    
+    def on_enter_orcid_id(self, text):
+        print("anything")
