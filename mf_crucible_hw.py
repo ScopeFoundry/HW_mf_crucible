@@ -14,9 +14,7 @@ class MFCrucibleHW(HardwareComponent):
         
         #self.orcid1.textChanged.connect(self.on_enter_orcid_id)     
         #self.settings.orcid1.textChanged.connect(self.on_enter_orcid_id)
-        self.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
-        self.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
-        
+
     def on_enter_orcid_id(self, text):
         text_clean = text.replace("-", "")
         patt = re.compile("[0-9]*")
