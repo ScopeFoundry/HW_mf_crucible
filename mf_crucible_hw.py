@@ -39,7 +39,7 @@ class MFCrucibleHW(HardwareComponent):
             
 def get_proposals_using_orcid(orcid_id):
     with open("secrets/proposaldb.yaml") as f:
-        secrets= yaml.safe_load(f, 'r')
+        secrets= yaml.safe_load(f)
     f.close()
     apikey = secrets["apikey"]
     print(f"https://foundry-admin.lbl.gov/api/json/sciCat-GetUser.aspx?key={apikey}&orcid={orcid_id}")
