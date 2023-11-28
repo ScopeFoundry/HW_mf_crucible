@@ -22,7 +22,7 @@ class MFCrucibleHW(HardwareComponent):
     def on_enter_orcid_id(self):
         orcid = self.settings.orcid.value.replace("-", "")
         patt = re.compile("[0-9]*")
-        orcid_format = "-".join(string[i:i+4] for i in range(0,len(string),4))
+        orcid_format = "-".join(orcid[i:i+4] for i in range(0,len(orcid),4))
         print(orcid_format)
         #full_text = "-".join([orcid[0:4], orcid[4:8], orcid[8:12], orcid[12:16]])
         if all([len(orcid)==16, re.compile("[0-9]*").match(orcid)]):
