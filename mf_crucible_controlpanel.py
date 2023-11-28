@@ -11,7 +11,7 @@ class MFCrucibleControlPanel(Measurement):
     def setup_figure(self):
         #self.user_info.settings.orcid.textChanged.connect(self.on_enter_orcid_id)
         
-        self.ui = self.user_info.settings.New_UI()
+        self.ui = self.app.hardware['mf_crucible'].settings.New_UI()
         self.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
         self.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
         
