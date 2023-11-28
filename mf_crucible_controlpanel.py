@@ -15,15 +15,17 @@ class MFCrucibleControlPanel(Measurement):
         try: 
             self.app.ui.orcid2.textChanged.connect(self.on_enter_orcid_id)      
         except:
-            print("first one didnt work")
+            print(exception)
         try: 
             self.app.ui.hardware_treeWidget.orcid3.textChanged.connect(self.on_enter_orcid_id)      
         except:
             print('second one didnt work')
+            print(exception)
         try:
             self.app.orcid1.textChanged.connect(self.on_enter_orcid_id)
         except:
             print('third failed')
+            print(exception)
         #self.ui.email.returnPressed.connect(self.x_up)
 
     def x_up(self):
