@@ -10,7 +10,7 @@ class MFCrucibleHW(HardwareComponent):
         self.settings.New("proposal", initial="MFP0000", choices=(['MFP0000']), dtype=str)
         self.settings.New("email", initial="nobody@lbl.gov",dtype=str)
         
-        self.settings.orcid.add_listener(on_enter_orcid_id, argtype = str)
+        self.settings.orcid.add_listener(self.on_enter_orcid_id, argtype = str)
         
         self.add_operation("User Login", self.login_opfunc)
 
