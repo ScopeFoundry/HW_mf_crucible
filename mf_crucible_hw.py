@@ -21,11 +21,10 @@ class MFCrucibleHW(HardwareComponent):
         
     def on_enter_orcid_id(self):
         orcid = self.settings.orcid.value.replace("-", "")
-        patt = re.compile("[0-9]*")
         orcid_format = "-".join(orcid[i:i+4] for i in range(0,len(orcid),4))
-        print(orcid_format)
-        if all([len(orcid)==16, re.compile("[0-9]*").match(orcid)]):
+        if all([len(orcid)==16, re.compile("[0-9]*").match(orcid), orcid != "0000000000000000"]):
             user_info = get_proposals_using_orcid(orcid_format)
+            print(user_info)
             
             # update proposal dropdown options
             proposal_list = user_info['proposals']
