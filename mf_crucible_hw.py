@@ -24,12 +24,11 @@ class MFCrucibleHW(HardwareComponent):
         orcid_format = "-".join(orcid[i:i+4] for i in range(0,len(orcid),4))
         if all([len(orcid)==16, re.compile("[0-9]*").match(orcid), orcid != "0000000000000000"]):
             user_info = get_proposals_using_orcid(orcid_format)
-            print(user_info)
-            
             # update proposal dropdown options
             proposal_list = user_info['proposals']
+            proposal_list.append("InternalResearch")
             prop_lq = self.settings.get_lq('proposal')
-            prop_lq.change_choice_list(proposal_list.append("InternalResearch"))
+            prop_lq.change_choice_list(proposal_list)
             prop_lq.update_value("InternalResearch")
             
             # update user email
