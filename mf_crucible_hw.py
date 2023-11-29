@@ -11,13 +11,14 @@ class MFCrucibleHW(HardwareComponent):
         self.settings.New("orcid", initial="0000-0000-0000-0000", dtype=str)
         self.settings.New("proposal", initial="MFP0000", choices=(['MFP0000']), dtype=str)
         self.settings.New("email", initial="nobody@lbl.gov",dtype=str)
+        self.settings.New("user_name", initial = "nobody", dtype = str)
         
         self.settings.orcid.add_listener(self.on_enter_orcid_id, argtype = str)
         
-        self.add_operation("User Login", self.login_opfunc)
+        #self.add_operation("User Login", self.login_opfunc)
 
-    def login_opfunc(self):
-        print("user login operation running")
+    #def login_opfunc(self):
+      #  print("user login operation running")
         
     def on_enter_orcid_id(self):
         orcid = self.settings.orcid.value.replace("-", "")
@@ -38,7 +39,11 @@ class MFCrucibleHW(HardwareComponent):
                 email = user_info['lbl_email'] if user_info['lbl_email'] is not None else user_info['email']
                 email_lq = self.settings.get_lq('email')
                 email_lq.update_value(email)
-            
+                
+                # update name
+                user_name = f"{user_info['first_name']} {user_info['last_name']}"
+                user_name_lq = self.settings.get_lq('user_name')
+                user_name_lq.update_value(user_name)
 
             
 def get_proposals_using_orcid(orcid_id):
