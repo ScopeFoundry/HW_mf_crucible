@@ -22,19 +22,22 @@ class MFCrucibleHW(HardwareComponent):
     def on_enter_orcid_id(self):
         orcid = self.settings.orcid.value.replace("-", "")
         orcid_format = "-".join(orcid[i:i+4] for i in range(0,len(orcid),4))
+        print(orcid_format)
         if all([len(orcid)==16, re.compile("[0-9]*").match(orcid), orcid != "0000000000000000"]):
             user_info = get_proposals_using_orcid(orcid_format)
-            # update proposal dropdown options
-            proposal_list = user_info['proposals']
-            proposal_list.append("InternalResearch")
-            prop_lq = self.settings.get_lq('proposal')
-            prop_lq.change_choice_list(proposal_list)
-            prop_lq.update_value("InternalResearch")
-            
-            # update user email
-            email = user_info['lbl_email'] if user_info['lbl_email'] is not None else user_info['email']
-            email_lq = self.settings.get_lq('email')
-            email_lq.update_value(email)
+            print(user_info)
+            if user_info is not None:
+                # update proposal dropdown options
+                proposal_list = user_info['proposals']
+                proposal_list.append("InternalResearch")
+                prop_lq = self.settings.get_lq('proposal')
+                prop_lq.change_choice_list(proposal_list)
+                prop_lq.update_value("InternalResearch")
+
+                # update user email
+                email = user_info['lbl_email'] if user_info['lbl_email'] is not None else user_info['email']
+                email_lq = self.settings.get_lq('email')
+                email_lq.update_value(email)
             
 
             
@@ -47,4 +50,4 @@ def get_proposals_using_orcid(orcid_id):
     if response.text != '' and response.status_code == 200:
         return(response.json())
     else:
-        return(f"user with orcid ID {orcid_id} not found in user database")
+        return(None)
