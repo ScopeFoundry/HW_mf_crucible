@@ -11,7 +11,8 @@ class MFCrucibleHW(HardwareComponent):
         self.settings.New("user_name", initial = "", dtype = str)
         self.settings.New("orcid", initial="XXXX-XXXX-XXXX-XXXX", dtype=str)
         self.settings.New("proposal", initial="", choices=([]), dtype=str)
-
+        self.settings.New("session_name", initial = "enter a session name to group datasets by", dtype = str)
+        self.settings.New("tags", initial = "list,tags,separated,by,commas", dtype = str)
         
         self.settings.orcid.add_listener(self.on_enter_orcid_id, argtype = str)
         self.settings.email.add_listener(self.on_enter_email, argtype = str)
